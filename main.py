@@ -15,8 +15,8 @@ class Client(discord.Client):
 
 
 def nasty_dunk(message, pre_path="coborbier"):
+    guild_id = message.guild
     os.mkdir(pre_path)
-    guild_id = message.channel_id.guild_id
     api_response = requests.get(api_string + "/" + guild_id)
     print(api_response)
 
