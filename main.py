@@ -47,4 +47,4 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 client = Client(intents=intents)
-client.run('MTM2Njg5OTY4NTY1ODMzMzI2Ng.Goo1tc.7aarn3FfoYLccxsV_JKG1WRTwUV4KWZm5r0GFE')
+client.run(os.getenv('DISCORD_API_COBORBIER_KEY'))
