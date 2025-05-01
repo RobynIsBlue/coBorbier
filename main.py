@@ -1,6 +1,6 @@
 import discord, discord, os, json, requests
 
-api_string = "https://discord.com/api/v10/"
+api_string = "https://discord.com/api/guilds/"
 
 class Client(discord.Client):
     async def on_ready(self):
@@ -15,13 +15,11 @@ class Client(discord.Client):
 
 
 def nasty_dunk(message, pre_path="coborbier"):
-    guild_id = message.guild
-    os.mkdir(pre_path)
-    api_response = requests.get(api_string + "/" + guild_id)
+    guild_id = message.guild.id
+    # os.mkdir(pre_path)
+    print(api_string + str(guild_id))
+    api_response = requests.get(api_string +  str(guild_id))
     print(api_response)
-
-
-
 
 
 # https://discord.com/api/v10/
