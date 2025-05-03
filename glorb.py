@@ -37,7 +37,7 @@ def nasty_dunk(message, pre_path="coborbier"):
 
 
 # https://discord.com/api/v10/
-# https://discord.com/api/v10/guilds/1366926543758295081
+# https://discord.com/api/v10/guilds/
 
 
 
