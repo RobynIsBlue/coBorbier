@@ -1,6 +1,7 @@
-import discord, discord, os, json, requests
+import discord, os, json, requests
 
 api_string = "https://discord.com/api/guilds/"
+coborbier_key = os.getenv('DISCORD_API_COBORBIER_KEY')
 
 class Client(discord.Client):
     async def on_ready(self):
@@ -11,15 +12,33 @@ class Client(discord.Client):
             return
         
         if message.content.startswith('dew it'):
-            nasty_dunk(message)
+            await nasty_dunk(self, message)
 
 
-def nasty_dunk(message, pre_path="coborbier"):
-    guild_id = message.guild.id
-    # os.mkdir(pre_path)
-    print(api_string + str(guild_id))
-    api_response = requests.get(api_string +  str(guild_id))
-    print(api_response)
+async def nasty_dunk(client, message, pre_path="coborbier"):
+    guild = discord.Client.get_guild(client, message.guild.id)
+    for category in guild.by_category():
+        for channel in category[1]:
+            if channel.type != discord.ChannelType.text:
+                continue
+            category_path = pre_path + "/" + category[0].name + "/" + channel.name
+            try:
+                os.makedirs(category_path)
+            except:
+                pass
+            messages = [message async for message in channel.history()]
+            for message in messages:
+                for attachment in message.attachments:
+                    await attachment.save(fp=category_path + "/" + attachment.filename)
+
+
+
+                
+
+        
+
+
+    # print(api_response)
 
 
 # https://discord.com/api/v10/
@@ -47,4 +66,4 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 client = Client(intents=intents)
-client.run(os.getenv('DISCORD_API_COBORBIER_KEY'))
+client.run(coborbier_key)
